@@ -4,7 +4,7 @@ class App extends Component {
   render() {
     return (
       <div className="containerFluid">
-        <p>headrer goes here...</p>
+        <p>header goes here...</p>
         {this.props.children}
       </div>
     );
