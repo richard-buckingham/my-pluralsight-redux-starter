@@ -3,10 +3,13 @@ import React, { Component, PropTypes } from "react";
 class CoursesPage extends Component {
   constructor(props, context) {
     super(props, context);
-    console.log("in CoursesPage constructor");
+
     this.state = {
       course: { title: "" }
     };
+
+    this.onTitleChange = this.onTitleChange.bind(this);
+    this.onClickSave = this.onClickSave.bind(this);
   }
 
   onTitleChange(event) {
@@ -16,6 +19,10 @@ class CoursesPage extends Component {
     course.title = event.target.value;
     // update component state
     this.setState({ course: course });
+  }
+
+  onClickSave(event) {
+    console.log(`${this.state.course.title}`);
   }
 
   render() {
