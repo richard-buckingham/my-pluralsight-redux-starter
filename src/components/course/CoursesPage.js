@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from "react";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 // import actions
@@ -28,7 +29,7 @@ class CoursesPage extends Component {
 
   onClickSave(event) {
     console.log(`dispatching the "CREATE_COURSE" action `);
-    this.props.createCourse(this.state.course);
+    this.props.actions.createCourse(this.state.course);
   }
 
   courseRow(course, index) {
@@ -70,7 +71,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createCourse: course => dispatch(courseActions.createCourse(course))
+    actions: bindActionCreators(courseActions, dispatch)
   };
 }
 
