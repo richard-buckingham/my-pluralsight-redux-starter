@@ -17,9 +17,9 @@ class CoursesPage extends Component {
   }
 
   onTitleChange(event) {
-    console.log(
+    /* console.log(
       `In onTitleChange, event.target.value = ${this.state.course.title}`
-    );
+    ); */
     // make a local copy of component state
     const course = this.state.course;
     // update the local copy of state to the latest value
@@ -30,14 +30,20 @@ class CoursesPage extends Component {
   }
 
   onClickSave(event) {
-    console.log(`dispatching the "CREATE_COURSE" action `);
+    //console.log(`dispatching the "CREATE_COURSE" action `);
     this.props.dispatch(courseActions.createCourse(this.state.course));
+  }
+
+  courseRow(course, index) {
+    return <div key={index}>{course.title}</div>;
   }
 
   render() {
     return (
       <div>
         <h1>Courses....</h1>
+        {this.state.courses.map(this.courseRow)}
+
         <h2>Add Course</h2>
 
         <input
@@ -51,6 +57,11 @@ class CoursesPage extends Component {
     );
   }
 }
+
+CoursesPage.propTypes = {
+  courses: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+};
 
 function mapStateToProps(state, ownProps) {
   // state.courses is defined in the rootReducer
