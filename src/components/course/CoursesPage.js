@@ -1,4 +1,8 @@
 import React, { Component, PropTypes } from "react";
+import { connect } from "react-redux";
+
+// import actions
+import * as courseActions from "../../actions/courseActions";
 
 class CoursesPage extends Component {
   constructor(props, context) {
@@ -13,16 +17,21 @@ class CoursesPage extends Component {
   }
 
   onTitleChange(event) {
+    console.log(
+      `In onTitleChange, event.target.value = ${this.state.course.title}`
+    );
     // make a local copy of component state
     const course = this.state.course;
     // update the local copy of state to the latest value
     course.title = event.target.value;
+
     // update component state
     this.setState({ course: course });
   }
 
   onClickSave(event) {
-    console.log(`${this.state.course.title}`);
+    console.log(`dispatching the "CREATE_COURSE" action `);
+    this.props.dispatch(courseActions.createCourse(this.state.course));
   }
 
   render() {
@@ -43,4 +52,13 @@ class CoursesPage extends Component {
   }
 }
 
-export default CoursesPage;
+function mapStateToProps(state, ownProps) {
+  // state.courses is defined in the rootReducer
+  return {
+    courses: state.courses
+  };
+}
+
+// The connect function accepts two parmeters, and it returns a function
+// that wraps CoursesPage
+export default connect(mapStateToProps)(CoursesPage);
